@@ -7,7 +7,7 @@ import Write from "../write";
 
 const location = "affirmations";
 
-export default function affirmations() {
+export default function Affirmations() {
   // State to control the visibility of the Write input
   const [isWriting, setIsWriting] = useState(false);
 

@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-
+import dynamic from "next/dynamic";
 import Navigationhome from "../navigation";
-import Read from "../Read";
-import Write from "../write";
+const Read = dynamic(() => import("../Read"), { ssr: false });
+const Write = dynamic(() => import("../write"), { ssr: false });
 
 const location = "affirmations";
 

@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth"; // Import Firebase Authentication
 import { getFirestore } from "firebase/firestore"; // Import Firestore
 
@@ -24,10 +23,6 @@ const auth = getAuth(app);
 // Initialize Firestore
 const db = getFirestore(app);
 
-// Initialize Firebase Analytics (only on client-side)
-let analytics;
-if (typeof window !== "undefined" && typeof window.document !== "undefined") {
-  analytics = getAnalytics(app);
-}
 
-export { app, auth, analytics, db };
+
+export { app, auth, db };

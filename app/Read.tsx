@@ -18,6 +18,7 @@ const Read: React.FC<WriteProps> = ({ localLocation }) => {
     const daysRemaining = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert time difference to days
     return `${daysRemaining} days until`;
   };
+
   const calculateTimeRemaining = (eventDate: string) => {
     const currentDate = new Date();
     const targetDate = new Date(eventDate);
@@ -43,7 +44,7 @@ const Read: React.FC<WriteProps> = ({ localLocation }) => {
   
     return timeRemaining;
   };
-  
+
   // Fetch data from Firebase when the component mounts
   useEffect(() => {
     const fetchData = async () => {
@@ -52,10 +53,14 @@ const Read: React.FC<WriteProps> = ({ localLocation }) => {
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
         // Store the keys along with the messages for deletion
-        const data = Object.entries(snapshot.val()).map(([key, value]) => ({
-          id: key,
-          ...value,
-        }));
+        const data = Object.entries(snapshot.val()).map(([key, value]) => {
+          // Ensure value is an object before spreading
+          if (typeof value === 'object' && value !== null) {
+            return { id: key, ...value };
+          } else {
+            return { id: key, value }; // Fallback for non-object values
+          }
+        });
         setMessageArray(data);
       } else {
         alert("No data found.");
@@ -88,10 +93,14 @@ const Read: React.FC<WriteProps> = ({ localLocation }) => {
     const dbRef = ref(db, "appSpace/messages");
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
-      const data = Object.entries(snapshot.val()).map(([key, value]) => ({
-        id: key,
-        ...value,
-      }));
+      const data = Object.entries(snapshot.val()).map(([key, value]) => {
+        // Ensure value is an object before spreading
+        if (typeof value === 'object' && value !== null) {
+          return { id: key, ...value };
+        } else {
+          return { id: key, value }; // Fallback for non-object values
+        }
+      });
       setMessageArray(data);
     } else {
       alert("No data found.");
@@ -119,8 +128,6 @@ const Read: React.FC<WriteProps> = ({ localLocation }) => {
                   <p className="w-fit px-5 bg-pinkk-100 rounded-xl translate-y-[-180%] translate-x-[-24%] rotate-23 overflow-visible m-0">
                     {item.Title}
                   </p>
-
-                 
 
                   <button
                     onClick={() => removeMessage(item.id)} // Use item.id here

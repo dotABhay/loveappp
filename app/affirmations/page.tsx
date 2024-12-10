@@ -1,11 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import dynamic from "next/dynamic";
+
 import Navigationhome from "../navigation";
-const Read = dynamic(() => import("../Read"), { ssr: false });
-const Write = dynamic(() => import("../write"), { ssr: false });
+import Write from "../write";
 
 const location = "affirmations";
+
+// Dynamically import the Read component
+const Read = dynamic(() => import("../Read"), {
+  ssr: false, // Ensures it's only rendered on the client side
+  loading: () => <p>Loading...</p>, // Placeholder while loading
+});
 
 export default function Affirmations() {
   // State to control the visibility of the Write input
@@ -29,18 +35,20 @@ export default function Affirmations() {
   };
 
   return (
-    
     <div className="bg-affirmations bg-cover w-full h-screen bg-pinkk relative z-0">
       {isWriting && (
         <Write
           location={location}
-          onSave={handleSave}  // Pass the handleSave function to Write component
-          onBack={handleBack}  // Pass the handleBack function to Write component
+          onSave={handleSave} // Pass the handleSave function to Write component
+          onBack={handleBack} // Pass the handleBack function to Write component
         />
       )}
       <div className="flex flex-col">
         <h1 className="text-6xl text-pinkk-300 mx-6 py-10">Affirmations</h1>
-        <Read localLocation={location}/>
+        <Suspense fallback={<p>Loading affirmations...</p>}>
+          {/* Dynamically render the Read component */}
+          <Read localLocation={location} />
+        </Suspense>
         <div className="my-3">
           {/* Button to toggle input visibility */}
           <button
@@ -56,10 +64,6 @@ export default function Affirmations() {
         </div>
       </div>
 
-      {/* Conditionally render Write component based on isWriting state */}
-      
-
-      
       <Navigationhome />
     </div>
   );

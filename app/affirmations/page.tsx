@@ -1,16 +1,22 @@
 "use client";
+
 import { useState, Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import Navigationhome from "../navigation";
-import Write from "../write";
 
 const location = "affirmations";
 
-// Dynamically import the Read component
+// Dynamically import the Read component with SSR disabled
 const Read = dynamic(() => import("../Read"), {
-  ssr: false, // Ensures it's only rendered on the client side
-  loading: () => <p>Loading...</p>, // Placeholder while loading
+  ssr: false, // Disables server-side rendering
+  loading: () => <p>Loading affirmations...</p>, // Placeholder while loading
+});
+
+// Dynamically import the Write component with SSR disabled
+const Write = dynamic(() => import("../write"), {
+  ssr: false, // Disables server-side rendering
+  loading: () => <p>Loading write input...</p>, // Placeholder while loading
 });
 
 export default function Affirmations() {
@@ -37,11 +43,13 @@ export default function Affirmations() {
   return (
     <div className="bg-affirmations bg-cover w-full h-screen bg-pinkk relative z-0">
       {isWriting && (
-        <Write
-          location={location}
-          onSave={handleSave} // Pass the handleSave function to Write component
-          onBack={handleBack} // Pass the handleBack function to Write component
-        />
+        <Suspense fallback={<p>Loading write input...</p>}>
+          <Write
+            location={location}
+            onSave={handleSave} // Pass the handleSave function to Write component
+            onBack={handleBack} // Pass the handleBack function to Write component
+          />
+        </Suspense>
       )}
       <div className="flex flex-col">
         <h1 className="text-6xl text-pinkk-300 mx-6 py-10">Affirmations</h1>

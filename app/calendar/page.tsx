@@ -40,15 +40,11 @@ export default function Calendar() {
         />
       )}
       <div className="flex flex-col">
-
         <h1 className="text-6xl text-pinkk-300 mx-6 py-10">Calendar</h1>
         <CalendarTest />
-        <div className="absolute mt-80 left-0 right-0">
-        <Read localLocation={location}/>
         
-        </div>
-        <div className="my-3">
-       
+        <div className=" my-3">
+        <Read localLocation={location}/>
           {/* Button to toggle input visibility */}
           <button
             onClick={toggleWrite} // Toggle the Write component visibility

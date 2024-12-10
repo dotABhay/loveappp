@@ -15,21 +15,21 @@ export function CalendarTest() {
       showOutsideDays
       className="p-3 bg-pinkk-25 rounded-lg shadow-md w-[90%] mx-auto"
       classNames={{
-        months: "flex flex-col space-y-4",
+        months: "flex flex-col space-y-4 ",
         month: "space-y-4",
         caption: "flex justify-between items-center text-black text-lg",
-        caption_label: "text-base font-semibold",
+        caption_label: "text-pinkk-300 font-semibold",
         nav: "flex items-center space-x-2",
         nav_button: "h-8 w-8 p-0 rounded-full hover:bg-pinkk flex items-center justify-center",
-        table: "w-full border-collapse",
-        head_row: "flex justify-between",
-        head_cell: "text-pinkk-300 font-medium text-xs w-8 text-center",
-        row: "flex justify-between mt-1",
+        table: "w-full border-collapse space-y-1",
+        head_row: "flex",
+        head_cell: "text-pinkk-300 rounded-md w-8 font-normal text-[0.8rem]",
+        row: "flex w-full mt-2",
         cell: "relative p-0 text-center text-sm",
-        day: "h-10 w-10 p-0 rounded-full text-black font-medium hover:bg-pink-200 flex items-center justify-center",
-        day_today: "bg-pinkk-300 text-white font-bold",
-        day_outside: "text-gray-400 opacity-50", // Styling for outside days
-        day_disabled: "text-gray-400 opacity-50",
+        day: "h-8 w-8 p-0 font-normal text-pinkk-300  rounded-full", // Added background to inside days
+        day_today: "bg-pinkk-300 text-white bg-pinkk", // Highlight today with a different background
+        day_outside: "text-black opacity-20", // Styling for outside days
+        day_disabled: "text-black opacity-40",
       }}
       components={{
         IconLeft: ({ ...props }) => (

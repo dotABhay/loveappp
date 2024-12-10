@@ -109,7 +109,11 @@ const Read: React.FC<WriteProps> = ({ localLocation }) => {
   };
 
   return (
-    <div className="absolute mt-[130px] top-0 left-0 right-0 bottom-0">
+      <div
+    className={`absolute top-0 left-0 right-0 bottom-0 ${localLocation === 'Calendar' ? 'mt-[450px]' : 'mt-[130px]'}`}
+  >
+ 
+
       <button
         onClick={handleButtonClick}
         className="text-pinkk-300 text-2xl pl-10 mb-5"

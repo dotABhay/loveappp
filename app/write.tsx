@@ -4,7 +4,7 @@ import { getDatabase, ref, set, push } from "firebase/database";
 
 interface WriteProps {
   location: string; // Define the prop type for location
-  onSave: (title: string, body: string, date: string, time: string) => void; // Function to handle save
+  onSave: (title: string, body: string,  date: string, time: string) => void; // Function to handle save
   onBack: () => void; // Function to handle back action
 }
 

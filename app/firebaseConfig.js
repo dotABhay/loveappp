@@ -1,9 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth"; // Import Firebase Authentication
 import { getFirestore } from "firebase/firestore"; // Import Firestore
-
 
 // Your web app's Firebase configuration from environment variables
 const firebaseConfig = {
@@ -17,17 +15,28 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase only on the client-side (when window is defined)
+let app;
+if (typeof window !== "undefined") {
+  app = initializeApp(firebaseConfig);
+}
 
 // Initialize Firebase Analytics
-const analytics = getAnalytics(app);
+let analytics;
+if (app) {
+  analytics = getAnalytics(app);
+}
 
 // Initialize Firebase Authentication
-const auth = getAuth(app);
+let auth;
+if (app) {
+  auth = getAuth(app);
+}
 
 // Initialize Firestore
-const db = getFirestore(app);
+let db;
+if (app) {
+  db = getFirestore(app);
+}
 
-
-export { app, auth, analytics, db }; // Export auth, db, and analytics along with app
+export { app, auth, analytics, db };
